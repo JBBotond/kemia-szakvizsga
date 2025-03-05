@@ -8,8 +8,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
   const plusButtons = document.querySelectorAll(".plusButton");
   const trash = document.getElementById("trash");
   const resetButton = document.getElementById("reset");
-  const mainWindow = document.getElementById("reset");
-  const mainRect = mainWindow.getBoundingClientRect();
+  const mainRect = document.getElementById("main").getBoundingClientRect();
 
   var numSquare = 1;
 
@@ -102,11 +101,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
       pos2 = pos4 - e.clientY;
       pos3 = e.clientX;
       pos4 = e.clientY;
-      elmnt.style.top = Math.max((elmnt.offsetTop - pos2), headerRect.height) + "px";
-      elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
-
-      
-      //console.log(`Element position: top=${elmnt.style.top}, left=${elmnt.style.left}`);
+      elmnt.style.top = Math.max(headerRect.height, Math.min((elmnt.offsetTop - pos2))) + "px";
+      elmnt.style.left = Math.max(0, Math.min((elmnt.offsetLeft - pos1), mainRect.width - elmnt.offsetWidth)) + "px";
+      //console.log(`Element position: top=${elmnt.style.top}, left=${elmnt.style.left}, right=${elmnt.style.right}, bottom=${elmnt.style.bottom}`);
     }
 
     function closeDragElement() {
