@@ -9,22 +9,35 @@
     <title>Kemia teszt</title>
     <link rel="stylesheet" href="format.css">
     <script src="script.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
-<body background="red">
+</head>
+<body>
     <header>
         <h1>
             teszt szoveg
         </h1>
-    </header>
-    <div class="main">
-        <div class="szoveg" id="elso"></div>
-
-        <div id="square">
-    
-            <p align="center">C</p>
-
+        <h3>
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iste nihil, perferendis fugit tempora, odio sapiente facilis eveniet mollitia rem incidunt adipisci voluptatum? In, quasi ad ducimus explicabo sint dolore officiis!
+        </h3>
+        <h3 id="overflowMessage">
+            Tul sok elem!!
+        </h3>
+        <div class="buttonContainer">
+            <p id="hidrogenButton" class="plusButton">
+                +H
+            </p>
+            <p id="carbonButton" class="plusButton">
+                +C
+            </p>
         </div>
-
+    </header>
+    <img src="https://img.icons8.com/?size=100&id=OD5jprZTbcDK&format=png&color=000000" alt="trash bin" id="trash">
+    <button id="reset">
+        Reset
+    </button>
+    <div id="main">
+        <p align="center" class="square" id="initialSquare">C</p>
     </div>
     
 </body>

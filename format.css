@@ -3,20 +3,33 @@ body {
     margin: 0;
     display: flex;
     flex-direction: column;
-    background:  linear-gradient(90deg, yellow, green);
+    background: gray;
 }
 header {
     display: flex;
     align-content: center;
-    flex-wrap: wrap;
     justify-content: center;
     position: fixed;
-    height: 13%;
+    height: fit-content;
     width: 100%;
     background-color: greenyellow;
-    
+    flex-direction: row;
+    flex-wrap:wrap;
 }
-body .main {
+header h1 {
+  margin: 0;
+  align-self: center;
+}
+header h3 {
+  width: 80%;
+  margin: 0;
+  text-align: center;
+}
+#overflowMessage {
+  color: red;
+  visibility: hidden;
+}
+body #main {
   margin-top: 15%;
   display: flex;
   align-items: center;
@@ -68,6 +81,7 @@ body {
   margin-top: 5%;
   justify-content: space-between;
   width: 80%;
+  flex-direction: row;
 }
 .gombDoboz .gomb {
   width: 20%;
@@ -84,16 +98,66 @@ body {
   background-color: #a8cc35;
 }
 
-#square{
-  height:fit-content;
-  width:4%;
-  background-color: transparent;
-  border: 2px solid black;
-  cursor: move;
-  justify-content: center;
-
-}
-#square p{
+.square {
   font-size:large;
   align-content: center;
+  width: 50px;
+  height: 50px;
+  background-color: white;
+  margin: 0;
+  margin-bottom: 5px;
+  border-style: groove;
+  border-color: black;
+  cursor: grab;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+}
+.container .savContainer {
+  background-color: white;
+  height: 70vh;
+  width: 80vw; 
+}
+.container p {
+  margin-top: 5%;
+  display: flex;
+  width: 50%;
+  flex-wrap: wrap;
+}
+.buttonContainer {
+  display: flex;
+  flex-direction: row;
+}
+.buttonContainer p {
+  width: 50px;
+  height: 50px;
+  background-color: white;
+  margin: 0;
+  margin-bottom: 5px;
+  border-style: groove;
+  border-color: black;
+  cursor: pointer;
+}
+#hidrogenButton {
+  margin: 0 10px 0 0;
+}
+.buttonContainer p:hover {
+  background-color: grey;
+}
+#trash {
+  height: 90px;
+  width: 100px;
+  margin-top: 15%;
+  background-color: white;
+  border-style: groove;
+  border-color: black;
+}
+#reset {
+  width: 105px;
 }
