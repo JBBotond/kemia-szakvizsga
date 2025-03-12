@@ -127,6 +127,14 @@ document.addEventListener('DOMContentLoaded', (event) => {
       elmnt.style.top = Math.max(headerRect.height, Math.min((elmnt.offsetTop - pos2))) + "px";
       elmnt.style.left = Math.max(0, Math.min((elmnt.offsetLeft - pos1), mainRect.width - elmnt.offsetWidth)) + "px";
       //console.log(`Element position: top=${elmnt.style.top}, left=${elmnt.style.left}, right=${elmnt.style.right}, bottom=${elmnt.style.bottom}`);
+
+      /*
+      if(e.getAtrribute("vonal")=="nincs"){
+
+        isCollide(e,)
+
+      }
+      */
     }
 
     function closeDragElement() {
@@ -166,7 +174,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
       console.log(square.getAttribute('vonal'));
     }
   }
-
+  
   function createLines(square) {
     const directions = ['top', 'right', 'bottom', 'left'];
     directions.forEach(direction => {
@@ -174,6 +182,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
       line.classList.add('line', direction);
       line.style.position = 'absolute';
       line.style.backgroundColor = 'black';
+      line.setAttribute("index",square.getAttribute("index"));
+      console.log(line.getAttribute("index"));
       switch (direction) {
         case 'top':
           line.style.width = '2px';
@@ -237,4 +247,5 @@ document.addEventListener('DOMContentLoaded', (event) => {
       element.style.cursor = "pointer";
     });
   });
+
 });
