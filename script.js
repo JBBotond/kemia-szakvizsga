@@ -130,15 +130,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
       pos4 = e.clientY;
       elmnt.style.top = Math.max(headerRect.height, Math.min((elmnt.offsetTop - pos2))) + "px";
       elmnt.style.left = Math.max(0, Math.min((elmnt.offsetLeft - pos1), mainRect.width - elmnt.offsetWidth)) + "px";
-      //console.log(`Element position: top=${elmnt.style.top}, left=${elmnt.style.left}, right=${elmnt.style.right}, bottom=${elmnt.style.bottom}`);
-
-      /*
-      if(e.getAtrribute("vonal")=="nincs"){
-
-        isCollide(e,)
-
-      }
-      */
     }
 
     function closeDragElement() {
@@ -183,7 +174,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     const directions = ['top', 'right', 'bottom', 'left'];
     directions.forEach(direction => {
       const line = document.createElement('div');
-      line.classList.add('line' + square.getAttribute("index"));
+      line.classList.add('line', 'line' + square.getAttribute("index"));
       line.id = direction + square.getAttribute('index');
       line.style.position = 'absolute';
       line.style.backgroundColor = 'black';
