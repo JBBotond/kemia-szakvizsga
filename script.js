@@ -177,8 +177,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
       line.classList.add('line', direction);
       line.style.position = 'absolute';
       line.style.backgroundColor = 'black';
-      line.setAttribute("index",square.getAtrribute("index"));
-      console.log(line.getAtrribute("index"));
+      line.setAttribute("index",square.getAttribute("index"));
+      console.log(line.getAttribute("index"));
       switch (direction) {
         case 'top':
           line.style.width = '2px';
