@@ -26,7 +26,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
   });
 
   addHidrogen.addEventListener('click', () => {
-    if (numSquare >= 30) {
+    var squareCount = $('.square').length
+    console.log(squareCount + " hossz");
+    if (squareCount >= 30) {
       console.log("tul sok");
       overflowMessage.style.visibility = "visible";
       plusButtons.forEach(element => {
@@ -66,7 +68,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
   });
 
   addCarbon.addEventListener('click', () => {
-    if (numSquare >= 30) {
+    var squareCount = $('.square').length
+    console.log(squareCount + " hossz");
+    if (squareCount >= 30) {
       console.log("tul sok");
       overflowMessage.style.visibility = "visible";
       return 0;
@@ -149,7 +153,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
       ) {
         elmnt.remove();
         shake(trash, 1, 5);
-        numSquare--;
+        //numSquare--;
         console.log(numSquare);
         overflowMessage.style.visibility = "hidden";
         plusButtons.forEach(element => {
@@ -179,7 +183,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
     const directions = ['top', 'right', 'bottom', 'left'];
     directions.forEach(direction => {
       const line = document.createElement('div');
-      line.classList.add('line', direction);
+      line.classList.add('line' + square.getAttribute("index"));
+      line.id = direction + square.getAttribute('index');
       line.style.position = 'absolute';
       line.style.backgroundColor = 'black';
       line.setAttribute("index",square.getAttribute("index"));
