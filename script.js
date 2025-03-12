@@ -30,9 +30,18 @@ document.addEventListener('DOMContentLoaded', (event) => {
       return 0;
     }
     numSquare++;
-    console.log(numSquare);
+    
     var objTo = document.getElementById("main");
     const newSquare = document.createElement('p');
+    newSquare.setAttribute('index', numSquare.toString());
+    console.log(numSquare);
+    console.log(newSquare.getAttribute('index'));
+
+    //nincs, van, kotott
+    newSquare.setAttribute('vonal','nincs');
+    console.log(newSquare.getAttribute('vonal'));
+
+    
     newSquare.textContent = "H";
     newSquare.classList.add('square');
     newSquare.style.position = "absolute";
@@ -58,9 +67,18 @@ document.addEventListener('DOMContentLoaded', (event) => {
       return 0;
     }
     numSquare++;
+    
     console.log(numSquare);
     var objTo = document.getElementById("main");
     const newSquare = document.createElement('p');
+
+    newSquare.setAttribute('index', numSquare.toString());
+    console.log(newSquare.getAttribute('index'));
+
+    //nincs, van, kotott
+    newSquare.setAttribute('vonal','nincs');
+    console.log(newSquare.getAttribute('vonal'));
+
     newSquare.textContent = "C";
     newSquare.classList.add('square');
     newSquare.style.position = "absolute";
@@ -135,8 +153,12 @@ document.addEventListener('DOMContentLoaded', (event) => {
     const lines = square.querySelectorAll('.line');
     if (lines.length > 0) {
       lines.forEach(line => line.remove());
+      square.setAttribute('vonal','nincs');
+      console.log(square.getAttribute('vonal'));
     } else {
       createLines(square);
+      square.setAttribute('vonal','van');
+      console.log(square.getAttribute('vonal'));
     }
   }
 
