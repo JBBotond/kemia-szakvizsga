@@ -11,8 +11,13 @@ document.addEventListener('DOMContentLoaded', (event) => {
   const mainRect = document.getElementById("main").getBoundingClientRect();
 
   var numSquare = 1;
+  var initialSquare = document.getElementById("initialSquare");
+  initialSquare.setAttribute("index",numSquare.toString());
+  console.log(initialSquare.getAttribute('index'));
 
-  console.log(numSquare);
+    //nincs, van, kotott
+  initialSquare.setAttribute('vonal','nincs');
+  console.log(initialSquare.getAttribute('vonal'));
 
   squares.forEach(square => {
     square.style.position = "absolute"; // Ensure the element has a position style
@@ -219,7 +224,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
       }
     }, 100);
   }
-
+//amikor huzigalom a kockaimat
   resetButton.addEventListener('click', () => {
     shake(trash,2,10);
     const squares = document.querySelectorAll(".square");
