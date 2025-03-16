@@ -244,4 +244,53 @@ document.addEventListener('DOMContentLoaded', (event) => {
     });
   });
 
+  function combineSquares(square1, square2) {
+    if (square1.textContent === "H" && square2.textContent === "C") {
+      square2.textContent = "CH";
+    } else if (square1.textContent === "C" && square2.textContent === "H") {
+      square1.textContent = "CH";
+    }
+    square1.remove();
+  }
+
+  function checkCollision(square) {
+    const lines = document.querySelectorAll('.line');
+    lines.forEach(line => {
+      const lineRect = line.getBoundingClientRect();
+      const squareRect = square.getBoundingClientRect();
+      if (
+        squareRect.left < lineRect.right &&
+        squareRect.right > lineRect.left &&
+        squareRect.top < lineRect.bottom &&
+        squareRect.bottom > lineRect.top
+      ) {
+        const lineIndex = line.getAttribute('index');
+        const lineSquare = document.querySelector(`.square[index="${lineIndex}"]`);
+        if (lineSquare && lineSquare !== square) {
+          combineSquares(square, lineSquare);
+        }
+      }
+    });
+  }
+
+  document.addEventListener('mousemove', (event) => {
+    const movingSquare = document.querySelector('.square.moving');
+    if (movingSquare) {
+      checkCollision(movingSquare);
+    }
+  });
+
+  document.addEventListener('mousedown', (event) => {
+    if (event.target.classList.contains('square')) {
+      event.target.classList.add('moving');
+    }
+  });
+
+  document.addEventListener('mouseup', (event) => {
+    const movingSquare = document.querySelector('.square.moving');
+    if (movingSquare) {
+      movingSquare.classList.remove('moving');
+    }
+  });
+
 });
