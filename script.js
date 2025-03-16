@@ -1,7 +1,7 @@
-document.addEventListener('DOMContentLoaded', (event) => {
+document.addEventListener('DOMContentLoaded', () => {
   const header = document.querySelector('header');
   const headerRect = header.getBoundingClientRect();
-  var squares = document.querySelectorAll(".square");
+  const squares = document.querySelectorAll(".square");
   const addCarbon = document.getElementById("carbonButton");
   const addHidrogen = document.getElementById("hidrogenButton");
   const overflowMessage = document.getElementById("overflowMessage");
@@ -10,89 +10,54 @@ document.addEventListener('DOMContentLoaded', (event) => {
   const resetButton = document.getElementById("reset");
   const mainRect = document.getElementById("main").getBoundingClientRect();
 
-  var numSquare = 1;
-  var initialSquare = document.getElementById("initialSquare");
-  initialSquare.setAttribute("index",numSquare.toString());
-  console.log(initialSquare.getAttribute('index'));
-
-    //nincs, van, kotott
-  initialSquare.setAttribute('vonal','nincs');
-  console.log(initialSquare.getAttribute('vonal'));
+  let numSquare = 1;
+  const initialSquare = document.getElementById("initialSquare");
+  initializeSquare(initialSquare);
 
   squares.forEach(square => {
-    square.style.position = "absolute"; // Ensure the element has a position style
+    setupSquare(square);
+  });
+
+  addHidrogen.addEventListener('click', () => addSquare('H'));
+  addCarbon.addEventListener('click', () => addSquare('C'));
+  resetButton.addEventListener('click', resetSquares);
+
+  function initializeSquare(square) {
+    square.setAttribute("index", numSquare.toString());
+    square.setAttribute('vonal', 'nincs');
+    console.log(square.getAttribute('index'), square.getAttribute('vonal'));
+  }
+
+  function setupSquare(square) {
+    square.style.position = "absolute";
     dragElement(square);
-    square.addEventListener('dblclick', toggleLines); // Add double-click event listener
-  });
-
-  addHidrogen.addEventListener('click', () => {
-    var squareCount = $('.square').length
-    console.log(squareCount + " hossz");
-    if (squareCount >= 30) {
-      console.log("tul sok");
-      overflowMessage.style.visibility = "visible";
-      plusButtons.forEach(element => {
-        element.style.cursor = "not-allowed";
+    square.addEventListener('dblclick', toggleLines);
+    square.addEventListener('mouseup', () => {
+      document.querySelectorAll('.square').forEach(otherSquare => {
+        if (square !== otherSquare) {
+          stickSquares(square, otherSquare);
+        }
       });
-      return 0;
-    }
-    numSquare++;
-    
-    var objTo = document.getElementById("main");
-    const newSquare = document.createElement('p');
-    newSquare.setAttribute('index', numSquare.toString());
-    console.log(numSquare);
-    console.log(newSquare.getAttribute('index'));
+    });
+  }
 
-    //nincs, van, kotott
-    newSquare.setAttribute('vonal','nincs');
-    console.log(newSquare.getAttribute('vonal'));
-
-    
-    newSquare.textContent = "H";
-    newSquare.classList.add('square');
-    newSquare.style.position = "absolute";
-    newSquare.setAttribute("align", "center");
-    const lastSquare = objTo.querySelector('.square:last-of-type');
-    if (lastSquare) {
-      const lastRect = lastSquare.getBoundingClientRect();
-      newSquare.style.top = (lastRect.top + 100) + "px";
-      newSquare.style.left = (lastRect.left + 100) + "px";
-    } else {
-      newSquare.style.top = (headerRect.height + 100) + "px";
-      newSquare.style.left = "100px";
-    }
-    objTo.appendChild(newSquare);
-    dragElement(newSquare);
-    newSquare.addEventListener('dblclick', toggleLines); // Add double-click event listener
-  });
-
-  addCarbon.addEventListener('click', () => {
-    var squareCount = $('.square').length
-    console.log(squareCount + " hossz");
+  function addSquare(element) {
+    const squareCount = document.querySelectorAll('.square').length;
     if (squareCount >= 30) {
-      console.log("tul sok");
       overflowMessage.style.visibility = "visible";
-      return 0;
+      plusButtons.forEach(button => button.style.cursor = "not-allowed");
+      return;
     }
+
     numSquare++;
-    
-    console.log(numSquare);
-    var objTo = document.getElementById("main");
     const newSquare = document.createElement('p');
-
-    newSquare.setAttribute('index', numSquare.toString());
-    console.log(newSquare.getAttribute('index'));
-
-    //nincs, van, kotott
-    newSquare.setAttribute('vonal','nincs');
-    console.log(newSquare.getAttribute('vonal'));
-
-    newSquare.textContent = "C";
+    initializeSquare(newSquare);
+    newSquare.textContent = element;
     newSquare.classList.add('square');
     newSquare.style.position = "absolute";
     newSquare.setAttribute("align", "center");
-    const lastSquare = objTo.querySelector('.square:last-of-type');
+
+    const lastSquare = document.querySelector('#main .square:last-of-type');
     if (lastSquare) {
       const lastRect = lastSquare.getBoundingClientRect();
       newSquare.style.top = (lastRect.top + 100) + "px";
@@ -101,18 +66,15 @@ document.addEventListener('DOMContentLoaded', (event) => {
       newSquare.style.top = (headerRect.height + 100) + "px";
       newSquare.style.left = "100px";
     }
-    objTo.appendChild(newSquare);
-    dragElement(newSquare);
-    newSquare.addEventListener('dblclick', toggleLines); // Add double-click event listener
-  });
+
+    document.getElementById("main").appendChild(newSquare);
+    setupSquare(newSquare);
+  }
 
   function dragElement(elmnt) {
-    var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-    if (document.getElementById(elmnt.id)) {
-      document.getElementById(elmnt.id).addEventListener('mousedown', dragMouseDown);
-    } else {
-      elmnt.addEventListener('mousedown', dragMouseDown);
-    }
+    let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+
+    elmnt.addEventListener('mousedown', dragMouseDown);
 
     function dragMouseDown(e) {
       e.preventDefault();
@@ -128,8 +90,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
       pos2 = pos4 - e.clientY;
       pos3 = e.clientX;
       pos4 = e.clientY;
-      elmnt.style.top = Math.max(headerRect.height, Math.min((elmnt.offsetTop - pos2))) + "px";
-      elmnt.style.left = Math.max(0, Math.min((elmnt.offsetLeft - pos1), mainRect.width - elmnt.offsetWidth)) + "px";
+      elmnt.style.top = Math.max(headerRect.height, elmnt.offsetTop - pos2) + "px";
+      elmnt.style.left = Math.max(0, Math.min(elmnt.offsetLeft - pos1, mainRect.width - elmnt.offsetWidth)) + "px";
     }
 
     function closeDragElement() {
@@ -144,12 +106,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
       ) {
         elmnt.remove();
         shake(trash, 1, 5);
-        //numSquare--;
-        console.log(numSquare);
         overflowMessage.style.visibility = "hidden";
-        plusButtons.forEach(element => {
-          element.style.cursor = "pointer";
-        });
+        plusButtons.forEach(button => button.style.cursor = "pointer");
       }
       document.removeEventListener('mouseup', closeDragElement);
       document.removeEventListener('mousemove', elementDrag);
@@ -161,15 +119,14 @@ document.addEventListener('DOMContentLoaded', (event) => {
     const lines = square.querySelectorAll('.line');
     if (lines.length > 0) {
       lines.forEach(line => line.remove());
-      square.setAttribute('vonal','nincs');
-      console.log(square.getAttribute('vonal'));
+      square.setAttribute('vonal', 'nincs');
     } else {
       createLines(square);
-      square.setAttribute('vonal','van');
-      console.log(square.getAttribute('vonal'));
+      square.setAttribute('vonal', 'van');
     }
+    console.log(square.getAttribute('vonal'));
   }
-  
+
   function createLines(square) {
     const directions = ['top', 'right', 'bottom', 'left'];
     directions.forEach(direction => {
@@ -178,8 +135,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
       line.id = direction + square.getAttribute('index');
       line.style.position = 'absolute';
       line.style.backgroundColor = 'black';
-      line.setAttribute("index",square.getAttribute("index"));
-      console.log(line.getAttribute("index"));
+      line.setAttribute("index", square.getAttribute("index"));
+
       switch (direction) {
         case 'top':
           line.style.width = '2px';
@@ -230,67 +187,56 @@ document.addEventListener('DOMContentLoaded', (event) => {
       }
     }, 100);
   }
-//amikor huzigalom a kockaimat
-  resetButton.addEventListener('click', () => {
-    shake(trash,2,10);
-    const squares = document.querySelectorAll(".square");
-    squares.forEach(element => {
-      element.remove();
-    });
+
+  function resetSquares() {
+    shake(trash, 2, 10);
+    document.querySelectorAll(".square").forEach(square => square.remove());
     numSquare = 0;
     overflowMessage.style.visibility = "hidden";
-    plusButtons.forEach(element => {
-      element.style.cursor = "pointer";
-    });
-  });
-
-  function combineSquares(square1, square2) {
-    if (square1.textContent === "H" && square2.textContent === "C") {
-      square2.textContent = "CH";
-    } else if (square1.textContent === "C" && square2.textContent === "H") {
-      square1.textContent = "CH";
-    }
-    square1.remove();
+    plusButtons.forEach(button => button.style.cursor = "pointer");
   }
 
-  function checkCollision(square) {
-    const lines = document.querySelectorAll('.line');
-    lines.forEach(line => {
-      const lineRect = line.getBoundingClientRect();
-      const squareRect = square.getBoundingClientRect();
-      if (
-        squareRect.left < lineRect.right &&
-        squareRect.right > lineRect.left &&
-        squareRect.top < lineRect.bottom &&
-        squareRect.bottom > lineRect.top
-      ) {
-        const lineIndex = line.getAttribute('index');
-        const lineSquare = document.querySelector(`.square[index="${lineIndex}"]`);
-        if (lineSquare && lineSquare !== square) {
-          combineSquares(square, lineSquare);
-        }
+  function stickSquares(square1, square2) {
+    const square1Rect = square1.getBoundingClientRect();
+    const square2Rect = square2.getBoundingClientRect();
+
+    const overlapX = Math.max(0, Math.min(square1Rect.right, square2Rect.right) - Math.max(square1Rect.left, square2Rect.left));
+    const overlapY = Math.max(0, Math.min(square1Rect.bottom, square2Rect.bottom) - Math.max(square1Rect.top, square2Rect.top));
+
+    if (overlapX > 0 && overlapY > 0) {
+      if (square1.getAttribute('vonal') === 'van' && square2.getAttribute('vonal') === 'nincs') {
+        square2.querySelectorAll('.line').forEach(line => line.remove());
+        createLines(square2);
+        square2.setAttribute('vonal', 'van');
+      } else if (square2.getAttribute('vonal') === 'van' && square1.getAttribute('vonal') === 'nincs') {
+        square1.querySelectorAll('.line').forEach(line => line.remove());
+        createLines(square1);
+        square1.setAttribute('vonal', 'van');
       }
-    });
+
+      const combinedSquare = document.createElement('div');
+      combinedSquare.classList.add('combinedSquare');
+      combinedSquare.style.position = 'absolute';
+      combinedSquare.style.top = Math.min(square1Rect.top, square2Rect.top) + 'px';
+      combinedSquare.style.left = Math.min(square1Rect.left, square2Rect.left) + 'px';
+      combinedSquare.style.width = Math.max(square1Rect.right, square2Rect.right) - Math.min(square1Rect.left, square2Rect.left) + 'px';
+      combinedSquare.style.height = Math.max(square1Rect.bottom, square2Rect.bottom) - Math.min(square1Rect.top, square2Rect.top) + 'px';
+
+      document.getElementById('main').appendChild(combinedSquare);
+
+      combinedSquare.appendChild(square1);
+      combinedSquare.appendChild(square2);
+
+      square1.style.position = 'absolute';
+      square1.style.top = (square1Rect.top - combinedSquare.getBoundingClientRect().top) + 'px';
+      square1.style.left = (square1Rect.left - combinedSquare.getBoundingClientRect().left) + 'px';
+
+      square2.style.position = 'absolute';
+      square2.style.top = (square2Rect.top - combinedSquare.getBoundingClientRect().top) + 'px';
+      square2.style.left = (square2Rect.left - combinedSquare.getBoundingClientRect().left) + 'px';
+
+      dragElement(combinedSquare);
+    }
   }
-
-  document.addEventListener('mousemove', (event) => {
-    const movingSquare = document.querySelector('.square.moving');
-    if (movingSquare) {
-      checkCollision(movingSquare);
-    }
-  });
-
-  document.addEventListener('mousedown', (event) => {
-    if (event.target.classList.contains('square')) {
-      event.target.classList.add('moving');
-    }
-  });
-
-  document.addEventListener('mouseup', (event) => {
-    const movingSquare = document.querySelector('.square.moving');
-    if (movingSquare) {
-      movingSquare.classList.remove('moving');
-    }
-  });
 
 });
