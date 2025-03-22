@@ -34,7 +34,9 @@ document.addEventListener('DOMContentLoaded', () => {
     square.addEventListener('dblclick', toggleLines);
     square.addEventListener('mouseup', () => {
       document.querySelectorAll('.square').forEach(otherSquare => {
-        if (square !== otherSquare) {
+        if (square !== otherSquare 
+          && otherSquare.getAttribute("vonal")==="van"
+        ) {
           stickSquares(square, otherSquare);
         }
       });
@@ -71,6 +73,8 @@ document.addEventListener('DOMContentLoaded', () => {
     setupSquare(newSquare);
   }
 
+  let squareGroups = [];
+
   function dragElement(elmnt) {
     let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
 
@@ -90,8 +94,12 @@ document.addEventListener('DOMContentLoaded', () => {
       pos2 = pos4 - e.clientY;
       pos3 = e.clientX;
       pos4 = e.clientY;
-      elmnt.style.top = Math.max(headerRect.height, elmnt.offsetTop - pos2) + "px";
-      elmnt.style.left = Math.max(0, Math.min(elmnt.offsetLeft - pos1, mainRect.width - elmnt.offsetWidth)) + "px";
+
+      const group = squareGroups.find(g => g.includes(elmnt)) || [elmnt];
+      group.forEach(square => {
+        square.style.top = Math.max(headerRect.height, square.offsetTop - pos2) + "px";
+        square.style.left = Math.max(0, Math.min(square.offsetLeft - pos1, mainRect.width - square.offsetWidth)) + "px";
+      });
     }
 
     function closeDragElement() {
@@ -196,47 +204,44 @@ document.addEventListener('DOMContentLoaded', () => {
     plusButtons.forEach(button => button.style.cursor = "pointer");
   }
 
+  function squareMoveTogether() {
+
+  }
+//square2=otherSquare vonalakkal
+//square1=mozgo square
   function stickSquares(square1, square2) {
     const square1Rect = square1.getBoundingClientRect();
-    const square2Rect = square2.getBoundingClientRect();
+    //const square2Rect = square2.getBoundingClientRect();
+    const lines = Array.from(square2.querySelectorAll('.line'));
+    lines.forEach(line => {
+      //console.log(line.id);
+      const lineRect = line.getBoundingClientRect();
+      //check collision
+      if (
+        lineRect.left < square1Rect.right &&
+        lineRect.right > square1Rect.left &&
+        lineRect.top < square1Rect.bottom &&
+        lineRect.bottom > square1Rect.top
+      ) {
+        // Collision detected
+        console.log(`Collision detected with line: ${line.id}`);
+        
+        // Check if the line is already connected to a square
+        if (!line.connectedSquare) {
+          // Add squares to a group
+          let group = squareGroups.find(g => g.includes(square1) || g.includes(square2));
+          if (!group) {
+            group = [];
+            squareGroups.push(group);
+          }
+          if (!group.includes(square1)) group.push(square1);
+          if (!group.includes(square2)) group.push(square2);
 
-    const overlapX = Math.max(0, Math.min(square1Rect.right, square2Rect.right) - Math.max(square1Rect.left, square2Rect.left));
-    const overlapY = Math.max(0, Math.min(square1Rect.bottom, square2Rect.bottom) - Math.max(square1Rect.top, square2Rect.top));
-
-    if (overlapX > 0 && overlapY > 0) {
-      if (square1.getAttribute('vonal') === 'van' && square2.getAttribute('vonal') === 'nincs') {
-        square2.querySelectorAll('.line').forEach(line => line.remove());
-        createLines(square2);
-        square2.setAttribute('vonal', 'van');
-      } else if (square2.getAttribute('vonal') === 'van' && square1.getAttribute('vonal') === 'nincs') {
-        square1.querySelectorAll('.line').forEach(line => line.remove());
-        createLines(square1);
-        square1.setAttribute('vonal', 'van');
+          // Mark the line as connected to the square
+          line.connectedSquare = square1;
+        }
       }
-
-      const combinedSquare = document.createElement('div');
-      combinedSquare.classList.add('combinedSquare');
-      combinedSquare.style.position = 'absolute';
-      combinedSquare.style.top = Math.min(square1Rect.top, square2Rect.top) + 'px';
-      combinedSquare.style.left = Math.min(square1Rect.left, square2Rect.left) + 'px';
-      combinedSquare.style.width = Math.max(square1Rect.right, square2Rect.right) - Math.min(square1Rect.left, square2Rect.left) + 'px';
-      combinedSquare.style.height = Math.max(square1Rect.bottom, square2Rect.bottom) - Math.min(square1Rect.top, square2Rect.top) + 'px';
-
-      document.getElementById('main').appendChild(combinedSquare);
-
-      combinedSquare.appendChild(square1);
-      combinedSquare.appendChild(square2);
-
-      square1.style.position = 'absolute';
-      square1.style.top = (square1Rect.top - combinedSquare.getBoundingClientRect().top) + 'px';
-      square1.style.left = (square1Rect.left - combinedSquare.getBoundingClientRect().left) + 'px';
-
-      square2.style.position = 'absolute';
-      square2.style.top = (square2Rect.top - combinedSquare.getBoundingClientRect().top) + 'px';
-      square2.style.left = (square2Rect.left - combinedSquare.getBoundingClientRect().left) + 'px';
-
-      dragElement(combinedSquare);
-    }
+    });
   }
 
 });
