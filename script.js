@@ -97,14 +97,45 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const group = squareGroups.find(g => g.includes(elmnt)) || [elmnt];
       group.forEach(square => {
-        square.style.top = Math.max(headerRect.height, square.offsetTop - pos2) + "px";
-        square.style.left = Math.max(0, Math.min(square.offsetLeft - pos1, mainRect.width - square.offsetWidth)) + "px";
+        const newTop = square.offsetTop - pos2;
+        const newLeft = square.offsetLeft - pos1;
+
+        let squareRect = square.getBoundingClientRect();
+        if (
+          newTop < headerRect.bottom &&
+          squareRect.right > headerRect.left &&
+          squareRect.left < headerRect.right
+        ) {
+          // Prevent collision with header
+          closeDragElement();
+        }
+        else {
+          square.style.top = newTop + "px";
+        square.style.left = newLeft + "px";
+        }//square van huzigalva
       });
     }
 
+    function getPositionAtCenter(element) {
+      const {top, left, width, height} = element.getBoundingClientRect();
+      return {
+        x: left + width / 2,
+        y: top + height / 2
+      };
+    }
+   
+   function getDistanceBetweenElements(a, b) {
+     const aPosition = getPositionAtCenter(a);
+     const bPosition = getPositionAtCenter(b);
+   
+     return Math.hypot(aPosition.x - bPosition.x, aPosition.y - bPosition.y);  
+   }
+
     function closeDragElement() {
-      const trashRect = trash.getBoundingClientRect();
+      document.removeEventListener('mousemove', elementDrag);
+      document.removeEventListener('mouseup', closeDragElement);
       const elmntRect = elmnt.getBoundingClientRect();
+      const trashRect = trash.getBoundingClientRect();
 
       if (
         elmntRect.left < trashRect.right &&
@@ -117,8 +148,6 @@ document.addEventListener('DOMContentLoaded', () => {
         overflowMessage.style.visibility = "hidden";
         plusButtons.forEach(button => button.style.cursor = "pointer");
       }
-      document.removeEventListener('mouseup', closeDragElement);
-      document.removeEventListener('mousemove', elementDrag);
     }
   }
 
