@@ -62,11 +62,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const lastSquare = document.querySelector('#main .square:last-of-type');
     if (lastSquare) {
       const lastRect = lastSquare.getBoundingClientRect();
-      newSquare.style.top = (lastRect.top + 100) + "px";
-      newSquare.style.left = (lastRect.left + 100) + "px";
+      newSquare.style.top = (lastRect.top + 70) + "px";
+      newSquare.style.left = (lastRect.left + 70) + "px";
     } else {
-      newSquare.style.top = (headerRect.height + 100) + "px";
-      newSquare.style.left = "100px";
+      newSquare.style.top = (headerRect.height + 50) + "px";
+      newSquare.style.left = "50px";
     }
 
     document.getElementById("main").appendChild(newSquare);
@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   let squareGroups = [];
 
-  function dragElement(elmnt) {
+  function dragElement(elmnt) {//elmnt a square
     let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
 
     elmnt.addEventListener('mousedown', dragMouseDown);
@@ -99,8 +99,8 @@ document.addEventListener('DOMContentLoaded', () => {
       group.forEach(square => {
         const newTop = square.offsetTop - pos2;
         const newLeft = square.offsetLeft - pos1;
-
         let squareRect = square.getBoundingClientRect();
+
         if (
           newTop < headerRect.bottom &&
           squareRect.right > headerRect.left &&
@@ -252,30 +252,41 @@ document.addEventListener('DOMContentLoaded', () => {
         lineRect.top < square1Rect.bottom &&
         lineRect.bottom > square1Rect.top
       ) {
+          let square2Rect = square2.getBoundingClientRect();
 
             if(lineRect.left < square1Rect.right) {
     			square1.style.left = square2.style.left - "50px";
     			square1.style.top = square2.style.top;
-    			square1.style.bottom = square2.style.bottom;}
+    			square1.style.bottom = square2.style.bottom;
+              console.log("ok");
+        }
         
         		if(strstr(line.id,"right")!=null){
     			square1.style.left = (square2Rect.left + 100) + 'px';
     			square1.style.top = square2.style.top;
-    			square1.style.bottom = square2.style.bottom;}
+    			square1.style.bottom = square2.style.bottom;
+          console.log("ok");
+        }
            
             if(strstr(line.id,"left")!=null) {
     			square1.style.left = (square2Rect.left - 100) + 'px';
     			square1.style.top = square2.style.top;
-    			square1.style.bottom = square2.style.bottom;}
+    			square1.style.bottom = square2.style.bottom;
+          console.log("ok");
+        }
     		
     		    if(strstr(line.id,"top")!=null){
     			square1.style.top = (square2Rect.top - 100) + 'px';
     			square1.style.right = square2.style.right;
-    			square1.style.left = square2.style.left;}
+    			square1.style.left = square2.style.left;
+          console.log("ok");
+        }
     		    if(strstr(line.id,"bottom")!=null){
     			square1.style.top = (square2Rect.top + 100) + 'px';
     			square1.style.right = square2.style.right;
-    			square1.style.left = square2.style.left;}
+    			square1.style.left = square2.style.left;
+          console.log("ok");
+        }
         // Collision detected
         console.log(`Collision detected with line: ${line.id}`);
         
