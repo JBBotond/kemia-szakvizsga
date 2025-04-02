@@ -252,6 +252,20 @@ document.addEventListener('DOMContentLoaded', () => {
         lineRect.top < square1Rect.bottom &&
         lineRect.bottom > square1Rect.top
       ) {
+
+            if(lineRect.left < square1Rect.right) {
+    			square1.style.left = square2.style.left - "50px";
+    			square1.style.top = square2.style.top;
+    			square1.style.bottom = square2.style.bottom;}
+    		/*if(lineRect.right > square1Rect.left){
+    			square1.style.top = square2.style.top;
+    			square1.style.bottom = square2.style.bottom;}
+    		if(lineRect.top < square1Rect.bottom){
+    			square1.style.left = square2.style.left;
+    			square1.style.right = square2.style.right;}
+    		if(lineRect.bottom > square1Rect.top){
+    			square1.style.left = square2.style.left;
+    			square1.style.right = square2.style.right;}*/
         // Collision detected
         console.log(`Collision detected with line: ${line.id}`);
         
