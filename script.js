@@ -257,15 +257,25 @@ document.addEventListener('DOMContentLoaded', () => {
     			square1.style.left = square2.style.left - "50px";
     			square1.style.top = square2.style.top;
     			square1.style.bottom = square2.style.bottom;}
-    		/*if(lineRect.right > square1Rect.left){
+        
+        		if(strstr(line.id,"right")!=null){
+    			square1.style.left = (square2Rect.left + 100) + 'px';
     			square1.style.top = square2.style.top;
     			square1.style.bottom = square2.style.bottom;}
-    		if(lineRect.top < square1Rect.bottom){
-    			square1.style.left = square2.style.left;
-    			square1.style.right = square2.style.right;}
-    		if(lineRect.bottom > square1Rect.top){
-    			square1.style.left = square2.style.left;
-    			square1.style.right = square2.style.right;}*/
+           
+            if(strstr(line.id,"left")!=null) {
+    			square1.style.left = (square2Rect.left - 100) + 'px';
+    			square1.style.top = square2.style.top;
+    			square1.style.bottom = square2.style.bottom;}
+    		
+    		    if(strstr(line.id,"top")!=null){
+    			square1.style.top = (square2Rect.top - 100) + 'px';
+    			square1.style.right = square2.style.right;
+    			square1.style.left = square2.style.left;}
+    		    if(strstr(line.id,"bottom")!=null){
+    			square1.style.top = (square2Rect.top + 100) + 'px';
+    			square1.style.right = square2.style.right;
+    			square1.style.left = square2.style.left;}
         // Collision detected
         console.log(`Collision detected with line: ${line.id}`);
         
@@ -286,5 +296,11 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
-
+function strstr(amiben, needle) {
+  const index = amiben.indexOf(needle);
+  if (index !== -1) {
+    return amiben.substring(index);
+  }
+  return null;
+}
 });
