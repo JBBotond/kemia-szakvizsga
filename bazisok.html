@@ -6,8 +6,9 @@
         <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Bazisok</title>
+        <title>Savak</title>
         <link rel="stylesheet" href="format.css">
+        <script src="bazisokScript.js"></script>
     </head>
 <body>
     <!DOCTYPE html>
@@ -23,16 +24,78 @@
 </head>
 <body>
     <header>
+        <div class="spacer"></div>
         <h1>
             Bazisok
         </h1>
+        <button onClick="window.location.href=window.location.href">
+            Reset
+        </button>
     </header>
-    <div class="container">
-        <p>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Distinctio nam officia odio dignissimos tenetur modi minima optio ipsam libero, officiis assumenda rem nisi totam explicabo recusandae repudiandae velit voluptatibus. Voluptas?
-        </p>
+    <div class="containerSpec">
+        <div id="elemek">
+            <p class="plusButton elem">
+                H
+            </p>
+            <p class="plusButton elem">
+                Na
+            </p>
+            <p class="plusButton elem">
+                K
+            </p>
+            <p class="plusButton elem">
+                Ca
+            </p>
+            <p class="plusButton elem">
+                Mg
+            </p>
+            <p class="plusButton" id="vigyazzElem">
+                !
+            </p>
+        </div>
         <div class="savContainer">
-
+            <div id="vegyuletContainer">
+                    <p id="valasztottElem">
+                        
+                    </p>
+                    <p id="plusszJel" class="valasztottSpec">
+                        +
+                    </p>
+                    <p id="valasztottGyok">
+                        
+                    </p>
+                    <p id="egyenloJel" class="valasztottSpec">
+                        ===>
+                    </p>
+            </div>
+            <p id="okGomb">
+                OK
+            </p>
+            <div id="valaszContainer">
+                <p id="valasz">
+                    easter egg
+                </p>
+            </div>
+        </div>
+        <div id="gyokok">
+            <p class="plusButton gyok">
+                Cl
+            </p>
+            <p class="plusButton gyok">
+                SO
+            </p>
+            <p class="plusButton gyok">
+                NO
+            </p>
+            <p class="plusButton gyok">
+                CO
+            </p>
+            <p class="plusButton gyok">
+                OH
+            </p>
+            <p class="plusszButton" id="vigyazzGyok">
+                !
+            </p>
         </div>
     </div>
 </body>
