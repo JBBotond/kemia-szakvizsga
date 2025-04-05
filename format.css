@@ -116,19 +116,31 @@ body {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  height: 100vh;
-  width: 100vw;
+  margin-top: 50px;
 }
-.container .savContainer {
-  background-color: white;
-  height: 70vh;
-  width: 80vw; 
+.containerSpec .savContainer {
+  background-color: black;
+  height:80svh;
+  width: 80svw; 
 }
 .container p {
   margin-top: 5%;
   display: flex;
   width: 50%;
   flex-wrap: wrap;
+}
+.containerSpec {
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: row;
+  margin-top: 50px;
+  align-items: flex-start;
+
+}
+.containerSpec #elemek, #gyokok {
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
 }
 .buttonContainer {
   display: flex;
@@ -160,4 +172,14 @@ body {
 }
 #reset {
   width: 105px;
+}
+#elemek p, #gyokok p {
+  width: 50px;
+  height: 50px;
+  background-color: white;
+  margin: 0;
+  margin-bottom: 5px;
+  border-style: groove;
+  border-color: black;
+  cursor: pointer;
 }
