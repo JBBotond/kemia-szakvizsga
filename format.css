@@ -8,7 +8,7 @@ body {
 header {
     display: flex;
     align-content: center;
-    justify-content: center;
+    justify-content: space-evenly;
     position: relative;
     height: fit-content;
     width: 100%;
@@ -122,6 +122,9 @@ body {
   background-color: black;
   height:80svh;
   width: 80svw; 
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
 .container p {
   margin-top: 5%;
@@ -182,4 +185,66 @@ body {
   border-style: groove;
   border-color: black;
   cursor: pointer;
+}
+#vegyuletContainer {
+  width: 70%;
+  height: 40%;
+  margin-top: 50px ;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: row;
+  
+}
+#vegyuletContainer p{
+  height: 50px;
+  width: 50px;
+  color: white;
+  background-color: inherit;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: dotted white;
+}
+#vegyuletContainer .valasztottSpec {
+  border: none;
+  font-size: xx-large;
+}
+#vegyuletContainer #egyenloJel {
+  color: blue;
+}
+#okGomb {
+  width: 80px;
+  height: 35px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  font-weight: 750;
+  border: solid white;
+  color: white;
+}
+#elemek #vigyazzElem, #gyokok #vigyazzGyok {
+  background-color: red;
+  border: double;
+  color: yellow;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 50px;
+  visibility: hidden;
+}
+#valaszContainer {
+  background-color: black;
+  height: 60%;
+  width: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#valaszContainer p {
+  font-size: 80px;
+  color: white;
+  visibility: hidden;
 }
