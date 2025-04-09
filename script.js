@@ -334,5 +334,3 @@ okButton.addEventListener('click', () => {
 });
 
 });
-
-});
