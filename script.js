@@ -13,6 +13,8 @@ document.addEventListener('DOMContentLoaded', () => {
   let numSquare = 1;
   const initialSquare = document.getElementById("initialSquare");
   initializeSquare(initialSquare);
+  let CSzam = 1;
+  let HSzam = 0;
 
   squares.forEach(square => {
     setupSquare(square);
@@ -31,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function setupSquare(square) {
     square.style.position = "absolute";
     dragElement(square);
-    square.addEventListener('dblclick', toggleLines);
+    if(square.textContent !== 'H')square.addEventListener('dblclick', toggleLines);
     square.addEventListener('mouseup', () => {
       document.querySelectorAll('.square').forEach(otherSquare => {
         if (square !== otherSquare 
@@ -59,14 +61,20 @@ document.addEventListener('DOMContentLoaded', () => {
     newSquare.style.position = "absolute";
     newSquare.setAttribute("align", "center");
 
+	if(newSquare.textContent==='H') HSzam++;
+	if(newSquare.textContent==='C') CSzam++;
+	
+	console.log(HSzam);
+	console.log(CSzam);
+
     const lastSquare = document.querySelector('#main .square:last-of-type');
     if (lastSquare) {
       const lastRect = lastSquare.getBoundingClientRect();
-      newSquare.style.top = (lastRect.top + 70) + "px";
-      newSquare.style.left = (lastRect.left + 70) + "px";
+      newSquare.style.top = (lastRect.top + 100) + "px";
+      newSquare.style.left = (lastRect.left + 100) + "px";
     } else {
-      newSquare.style.top = (headerRect.height + 50) + "px";
-      newSquare.style.left = "50px";
+      newSquare.style.top = (headerRect.height + 100) + "px";
+      newSquare.style.left = "100px";
     }
 
     document.getElementById("main").appendChild(newSquare);
@@ -75,7 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   let squareGroups = [];
 
-  function dragElement(elmnt) {//elmnt a square
+  function dragElement(elmnt) {
     let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
 
     elmnt.addEventListener('mousedown', dragMouseDown);
@@ -97,45 +105,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const group = squareGroups.find(g => g.includes(elmnt)) || [elmnt];
       group.forEach(square => {
-        const newTop = square.offsetTop - pos2;
-        const newLeft = square.offsetLeft - pos1;
-        let squareRect = square.getBoundingClientRect();
-
-        if (
-          newTop < headerRect.bottom &&
-          squareRect.right > headerRect.left &&
-          squareRect.left < headerRect.right
-        ) {
-          // Prevent collision with header
-          closeDragElement();
-        }
-        else {
-          square.style.top = newTop + "px";
-        square.style.left = newLeft + "px";
-        }//square van huzigalva
+        square.style.top = Math.max(headerRect.height, square.offsetTop - pos2) + "px";
+        square.style.left = Math.max(0, Math.min(square.offsetLeft - pos1, mainRect.width - square.offsetWidth)) + "px";
       });
     }
 
-    function getPositionAtCenter(element) {
-      const {top, left, width, height} = element.getBoundingClientRect();
-      return {
-        x: left + width / 2,
-        y: top + height / 2
-      };
-    }
-   
-   function getDistanceBetweenElements(a, b) {
-     const aPosition = getPositionAtCenter(a);
-     const bPosition = getPositionAtCenter(b);
-   
-     return Math.hypot(aPosition.x - bPosition.x, aPosition.y - bPosition.y);  
-   }
-
     function closeDragElement() {
-      document.removeEventListener('mousemove', elementDrag);
-      document.removeEventListener('mouseup', closeDragElement);
-      const elmntRect = elmnt.getBoundingClientRect();
       const trashRect = trash.getBoundingClientRect();
+      const elmntRect = elmnt.getBoundingClientRect();
 
       if (
         elmntRect.left < trashRect.right &&
@@ -143,11 +120,15 @@ document.addEventListener('DOMContentLoaded', () => {
         elmntRect.top < trashRect.bottom &&
         elmntRect.bottom > trashRect.top
       ) {
+		if (elmnt.textContent === 'H') HSzam--;
+		if (elmnt.textContent === 'C') CSzam--;
         elmnt.remove();
         shake(trash, 1, 5);
         overflowMessage.style.visibility = "hidden";
         plusButtons.forEach(button => button.style.cursor = "pointer");
       }
+      document.removeEventListener('mouseup', closeDragElement);
+      document.removeEventListener('mousemove', elementDrag);
     }
   }
 
@@ -229,6 +210,8 @@ document.addEventListener('DOMContentLoaded', () => {
     shake(trash, 2, 10);
     document.querySelectorAll(".square").forEach(square => square.remove());
     numSquare = 0;
+	CSzam = 0;
+	HSzam = 0;
     overflowMessage.style.visibility = "hidden";
     plusButtons.forEach(button => button.style.cursor = "pointer");
   }
@@ -240,6 +223,7 @@ document.addEventListener('DOMContentLoaded', () => {
 //square1=mozgo square
   function stickSquares(square1, square2) {
     const square1Rect = square1.getBoundingClientRect();
+	const square2Rect = square2.getBoundingClientRect();
     //const square2Rect = square2.getBoundingClientRect();
     const lines = Array.from(square2.querySelectorAll('.line'));
     lines.forEach(line => {
@@ -252,44 +236,31 @@ document.addEventListener('DOMContentLoaded', () => {
         lineRect.top < square1Rect.bottom &&
         lineRect.bottom > square1Rect.top
       ) {
-          let square2Rect = square2.getBoundingClientRect();
-
-            if(lineRect.left < square1Rect.right) {
-    			square1.style.left = square2.style.left - "50px";
-    			square1.style.top = square2.style.top;
-    			square1.style.bottom = square2.style.bottom;
-              console.log("ok");
-        }
-        
-        		if(strstr(line.id,"right")!=null){
-    			square1.style.left = (square2Rect.left + 100) + 'px';
-    			square1.style.top = square2.style.top;
-    			square1.style.bottom = square2.style.bottom;
-          console.log("ok");
-        }
-           
-            if(strstr(line.id,"left")!=null) {
-    			square1.style.left = (square2Rect.left - 100) + 'px';
-    			square1.style.top = square2.style.top;
-    			square1.style.bottom = square2.style.bottom;
-          console.log("ok");
-        }
-    		
-    		    if(strstr(line.id,"top")!=null){
-    			square1.style.top = (square2Rect.top - 100) + 'px';
-    			square1.style.right = square2.style.right;
-    			square1.style.left = square2.style.left;
-          console.log("ok");
-        }
-    		    if(strstr(line.id,"bottom")!=null){
-    			square1.style.top = (square2Rect.top + 100) + 'px';
-    			square1.style.right = square2.style.right;
-    			square1.style.left = square2.style.left;
-          console.log("ok");
-        }
-        // Collision detected
-        console.log(`Collision detected with line: ${line.id}`);
-        
+        // Collision detected 
+		console.log(`Collision detected with line: ${line.id}`);
+		
+		if(strstr(line.id,"right")!=null){
+			square1.style.left = (square2Rect.left + 100) + 'px';
+			square1.style.top = square2.style.top;
+			square1.style.bottom = square2.style.bottom;
+			square2.removeEventListener('dblclick',toggleLines);}
+       
+        if(strstr(line.id,"left")!=null) {
+			square1.style.left = (square2Rect.left - 100) + 'px';
+			square1.style.top = square2.style.top;
+			square1.style.bottom = square2.style.bottom;
+			square2.removeEventListener('dblclick',toggleLines);}
+		
+		if(strstr(line.id,"top")!=null){
+			square1.style.top = (square2Rect.top - 100) + 'px';
+			square1.style.right = square2.style.right;
+			square1.style.left = square2.style.left;
+			square2.removeEventListener('dblclick',toggleLines);}
+		if(strstr(line.id,"bottom")!=null){
+			square1.style.top = (square2Rect.top + 100) + 'px';
+			square1.style.right = square2.style.right;
+			square1.style.left = square2.style.left;
+			square2.removeEventListener('dblclick',toggleLines);}
         // Check if the line is already connected to a square
         if (!line.connectedSquare) {
           // Add squares to a group
@@ -307,13 +278,14 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
-function strstr(amiben, needle) {
+  function strstr(amiben, needle) {
   const index = amiben.indexOf(needle);
   if (index !== -1) {
     return amiben.substring(index);
   }
   return null;
 }
+
 });
 
 
