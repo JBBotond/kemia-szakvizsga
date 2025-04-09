@@ -310,5 +310,29 @@ okButton.addEventListener('click', () => {
   });
 } )
   
+okButton.addEventListener('click', () => {
+	console.log("php inditva");
+  fetch("script.php", { // Sends the request to script.php
+    method: "POST", 
+    headers: {
+        "Content-Type": "application/x-www-form-urlencoded", // Indicates the request is sent as a form
+    },
+    body: 
+    new URLSearchParams({
+        CSzam: encodeURIComponent(CSzam),
+        HSzam: encodeURIComponent(HSzam),
+    })
+  })
+  .then(response => response.json()) // Parse the response as JSON
+  .then(data => {
+    console.log(data[1].nev); // Log the parsed JSON object
+    // Process the JSON data as needed
+  })
+  .catch(error => {
+    console.error("Error:", error); // Handle any errors
+  });
+});
+
+});
 
 });
