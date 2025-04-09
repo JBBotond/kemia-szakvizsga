@@ -148,6 +148,7 @@ body {
 .buttonContainer {
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
 }
 .buttonContainer p {
   width: 50px;
@@ -158,6 +159,7 @@ body {
   border-style: groove;
   border-color: black;
   cursor: pointer;
+  margin: 0 10px 0 0;
 }
 #hidrogenButton {
   margin: 0 10px 0 0;

@@ -9,7 +9,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const trash = document.getElementById("trash");
   const resetButton = document.getElementById("reset");
   const mainRect = document.getElementById("main").getBoundingClientRect();
-
+  const okButton = document.getElementById("okButton");
+  
   let numSquare = 1;
   const initialSquare = document.getElementById("initialSquare");
   initializeSquare(initialSquare);
@@ -286,7 +287,28 @@ document.addEventListener('DOMContentLoaded', () => {
   return null;
 }
 
+okButton.addEventListener('click', () => {
+  fetch("script.php", { //Az int_data.php filenak kuldi a kérést 
+    method: "POST", 
+    headers: {
+        "Content-Type": "application/x-www-form-urlencoded", //Mutatja hogy ürlapként küldi a kérelmet (úgy mintha HTML-bölt formból menne)
+    },
+    body: 
+    new URLSearchParams({
+        //CSzam: encodeURIComponent(CSzam),
+        //HSzam: encodeURIComponent(HSzam),
+        //okGomb: encodeURIComponent(okGomb)
+    })
+  })
+  .then(response => response.text()) // Wait for the response text to resolve
+  .then(data => {
+    console.log(data); // Log the resolved data
+    // Do whatever you want with the data
+  })
+  .catch(error => {
+    console.error("Error:", error); // Handle any errors
+  });
+} )
+  
+
 });
-
-
-//database
