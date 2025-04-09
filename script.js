@@ -315,3 +315,6 @@ function strstr(amiben, needle) {
   return null;
 }
 });
+
+
+//database
