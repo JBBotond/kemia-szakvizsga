@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const resetButton = document.getElementById("reset");
   const mainRect = document.getElementById("main").getBoundingClientRect();
   const okButton = document.getElementById("okButton");
+  const nameBox = document.getElementById("nameBox");
   
   let numSquare = 1;
   const initialSquare = document.getElementById("initialSquare");
@@ -288,30 +289,6 @@ document.addEventListener('DOMContentLoaded', () => {
 }
 
 okButton.addEventListener('click', () => {
-  fetch("script.php", { //Az int_data.php filenak kuldi a kérést 
-    method: "POST", 
-    headers: {
-        "Content-Type": "application/x-www-form-urlencoded", //Mutatja hogy ürlapként küldi a kérelmet (úgy mintha HTML-bölt formból menne)
-    },
-    body: 
-    new URLSearchParams({
-        //CSzam: encodeURIComponent(CSzam),
-        //HSzam: encodeURIComponent(HSzam),
-        //okGomb: encodeURIComponent(okGomb)
-    })
-  })
-  .then(response => response.text()) // Wait for the response text to resolve
-  .then(data => {
-    console.log(data); // Log the resolved data
-    // Do whatever you want with the data
-  })
-  .catch(error => {
-    console.error("Error:", error); // Handle any errors
-  });
-} )
-  
-okButton.addEventListener('click', () => {
-	console.log("php inditva");
   fetch("script.php", { // Sends the request to script.php
     method: "POST", 
     headers: {
@@ -325,8 +302,13 @@ okButton.addEventListener('click', () => {
   })
   .then(response => response.json()) // Parse the response as JSON
   .then(data => {
-    console.log(data[1].nev); // Log the parsed JSON object
-    // Process the JSON data as needed
+    console.log(data); // Log the parsed JSON object to inspect it
+    if (data.nev) {
+      nameBox.style.visibility = "visible";
+      nameBox.innerText = data.nev; // Display the 'nev' value
+    } else {
+      nameBox.innerText = "No name found"; // Handle missing 'nev'
+    }
   })
   .catch(error => {
     console.error("Error:", error); // Handle any errors

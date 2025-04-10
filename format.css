@@ -250,3 +250,17 @@ body {
   color: white;
   visibility: hidden;
 }
+#nameBox {
+  background: white;
+  height: 80px;
+  width: 500px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  visibility: hidden;
+  border: solid 5px;
+}
+header #szenhidrogenek{
+  height: 50px;
+  width: 100px;
+}
