@@ -1,4 +1,0 @@
-square ->index 1
-	->vonal van
-vonalak----> class: "line" + square.index;
-       ----> id: square.direction + square.index;
