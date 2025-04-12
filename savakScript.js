@@ -132,7 +132,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 valasz.textContent = `${data.nev}`;
             } else if (data.error) {
                 console.error("Error from server:", data.error); // Log any error from the server
-                valasz.textContent = `Error: ${data.error}`;
+                valasz.textContent = "Hibás a megadott adat!";
             } else {
                 console.log("No matching 'nev' found.");
                 valasz.textContent = "No matching 'nev' found.";
