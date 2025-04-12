@@ -10,37 +10,51 @@
     <link rel="stylesheet" href="format.css">
     <script src="script.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 </head>
 </head>
 <body>
     <header>
-        <button class="gomb" id="szenhidrogenek" onclick="location.href='index.html'">
-            Home
+        <div>
+            <br>
+        <button id="szenhidrogenek" onclick="location.href='index.html'">
+           <p>Home ⌂ </p>
         </button>
+        <button id="reset">
+            <p>Reset ⟳ </p>
+        </button>   
         
+        </div>
         <h1 id="nameBox">
             placeholder
         </h1>
-        <h3 id="overflowMessage">
-            Tul sok elem!!
-        </h3>
         <div class="buttonContainer">
             <p id="hidrogenButton" class="plusButton">
                 +H
             </p>
+            
             <p id="carbonButton" class="plusButton">
                 +C
             </p>
-            <input type="submit" value="Ok" id="okButton">
+           
+            <p class="plusButton"> <input class="plusButton" type="submit" value="OK" id="okButton"></p>
+
+            
         </div>
+
+        <p class="szamlaloH" id="Hszam">H: </p>
+        <p class="szamlaloC" id="Cszam">C: </p>
+        
+        <h3 id="overflowMessage">
+            Tul sok elem!!
+        </h3>
+        
     </header>
+    <p id="trashStyle">
+            <img src="https://img.icons8.com/?size=100&id=OD5jprZTbcDK&format=png&color=000000" alt="trash bin" id="trash">
+    </p>
     <div id="main">
         <p align="center" class="square" id="initialSquare">C</p>
     </div>
-    <img src="https://img.icons8.com/?size=100&id=OD5jprZTbcDK&format=png&color=000000" alt="trash bin" id="trash">
-    <button id="reset">
-        Reset
-    </button>
-    
 </body>
 </html>
