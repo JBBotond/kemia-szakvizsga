@@ -1,222 +1,103 @@
 body {
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    background: gray;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  background: gray;
 }
 header {
-    display: flex;
-    align-content: center;
-    justify-content: space-evenly;
-    position: relative;
-    height: fit-content;
-    width: 100%;
-    background-color: greenyellow;
-    flex-direction: row;
-    flex-wrap:wrap;
+  display: flex;
+  align-content: center;
+  justify-content: space-evenly;
+  position: relative;
+  height: fit-content;
+  width: 100%;
+  background-color: greenyellow;
+  flex-direction: row;
+  flex-wrap:wrap;
 }
 header h1 {
-  margin: 0;
-  align-self: center;
+margin: 0;
+align-self: center;
 }
 header h3 {
-  width: 80%;
-  margin: 0;
-  text-align: center;
+width: 80%;
+margin: 0;
+text-align: center;
 }
 #overflowMessage {
-  color: red;
-  visibility: hidden;
+color: red;
+visibility: hidden;
 }
 body #main {
-  margin-top: 15%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
+margin-top: 15%;
+display: flex;
+align-items: center;
+justify-content: center;
+flex-direction: column;
 }
 .slider-thumb::before {
-    position: absolute;
-    content: "";
-    left: 30%;
-    top: 20%;
-    width: 450px;
-    height: 450px;
-    background: #d0ff42;
-    border-radius: 62% 47% 82% 35% / 45% 45% 80% 66%;
-    will-change: border-radius, transform, opacity;
-    animation: sliderShape 5s linear infinite;
-    display: block;
-    z-index: -1;
-    -webkit-animation: sliderShape 5s linear infinite;
+  position: absolute;
+  content: "";
+  left: 30%;
+  top: 20%;
+  width: 450px;
+  height: 450px;
+  background: #d0ff42;
+  border-radius: 62% 47% 82% 35% / 45% 45% 80% 66%;
+  will-change: border-radius, transform, opacity;
+  animation: sliderShape 5s linear infinite;
+  display: block;
+  z-index: -1;
+  -webkit-animation: sliderShape 5s linear infinite;
+}
+@keyframes sliderShape{
+  0%,100%{
+  border-radius: 42% 58% 70% 30% / 45% 45% 55% 55%;
+    transform: translate3d(0,0,0) rotateZ(0.01deg);
   }
-  @keyframes sliderShape{
-    0%,100%{
-    border-radius: 42% 58% 70% 30% / 45% 45% 55% 55%;
-      transform: translate3d(0,0,0) rotateZ(0.01deg);
-    }
-    34%{
-        border-radius: 70% 30% 46% 54% / 30% 29% 71% 70%;
-      transform:  translate3d(0,5px,0) rotateZ(0.01deg);
-    }
-    50%{
-      transform: translate3d(0,0,0) rotateZ(0.01deg);
-    }
-    67%{
-      border-radius: 100% 60% 60% 100% / 100% 100% 60% 60% ;
-      transform: translate3d(0,-3px,0) rotateZ(0.01deg);
-    }
+  34%{
+      border-radius: 70% 30% 46% 54% / 30% 29% 71% 70%;
+    transform:  translate3d(0,5px,0) rotateZ(0.01deg);
   }
+  50%{
+    transform: translate3d(0,0,0) rotateZ(0.01deg);
+  }
+  67%{
+    border-radius: 100% 60% 60% 100% / 100% 100% 60% 60% ;
+    transform: translate3d(0,-3px,0) rotateZ(0.01deg);
+  }
+}
 body {
-  font-family: "Noto Sans", serif;
-  font-optical-sizing: auto;
-  font-weight: 500;
-  font-style: normal;
-  font-variation-settings:
-    "wdth" 100;
+font-family: "Noto Sans", serif;
+font-optical-sizing: auto;
+font-weight: 500;
+font-style: normal;
+font-variation-settings:
+  "wdth" 100;
 }
 .gombDoboz {
-  display: flex;
-  margin-top: 5%;
-  justify-content: space-between;
-  width: 80%;
-  flex-direction: row;
+display: flex;
+margin-top: 5%;
+justify-content: space-between;
+width: 80%;
+flex-direction: row;
 }
 .gombDoboz .gomb {
-  width: 20%;
-  height: 100px;
-  background-color: #c4e652;
-  font-family: "Noto Sans", serif;
-  font-weight: 500;
-  font-optical-sizing: auto;
-  font-style: normal;
-  font-variation-settings:
-    "wdth" 100;
+width: 20%;
+height: 100px;
+background-color: #c4e652;
+font-family: "Noto Sans", serif;
+font-weight: 500;
+font-optical-sizing: auto;
+font-style: normal;
+font-variation-settings: "wdth" 100;
+border-radius: 14px;
 }
 .gombDoboz .gomb:hover {
-  background-color: #a8cc35;
+background-color: #a8cc35;
 }
 
-.square {
-  font-size:large;
-  align-content: center;
-  width: 50px;
-  height: 50px;
-  background-color: white;
-  margin: 0;
-  margin-bottom: 5px;
-  border-style: groove;
-  border-color: black;
-  cursor: grab;
-}
-
-.container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  margin-top: 50px;
-}
-.containerSpec .savContainer {
-  background-color: black;
-  height:80svh;
-  width: 80svw; 
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-}
-.container p {
-  margin-top: 5%;
-  display: flex;
-  width: 50%;
-  flex-wrap: wrap;
-}
-.containerSpec {
-  display: flex;
-  justify-content: space-evenly;
-  flex-direction: row;
-  margin-top: 50px;
-  align-items: flex-start;
-
-}
-.containerSpec #elemek, #gyokok {
-  width: fit-content;
-  display: flex;
-  flex-direction: column;
-}
-.buttonContainer {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-.buttonContainer p {
-  width: 50px;
-  height: 50px;
-  background-color: white;
-  margin: 0;
-  margin-bottom: 5px;
-  border-style: groove;
-  border-color: black;
-  cursor: pointer;
-  margin: 0 10px 0 0;
-}
-#hidrogenButton {
-  margin: 0 10px 0 0;
-}
-.buttonContainer p:hover {
-  background-color: grey;
-}
-#trash {
-  height: 90px;
-  width: 100px;
-  margin-top: 15%;
-  background-color: white;
-  border-style: groove;
-  border-color: black;
-}
-#reset {
-  width: 105px;
-}
-#elemek p, #gyokok p {
-  width: 50px;
-  height: 50px;
-  background-color: white;
-  margin: 0;
-  margin-bottom: 5px;
-  border-style: groove;
-  border-color: black;
-  cursor: pointer;
-}
-#vegyuletContainer {
-  width: 70%;
-  height: 40%;
-  margin-top: 50px ;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-around;
-  flex-direction: row;
-  
-}
-#vegyuletContainer p{
-  height: 50px;
-  width: 50px;
-  color: white;
-  background-color: inherit;
-  font-weight: 900;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: dotted white;
-}
-#vegyuletContainer .valasztottSpec {
-  border: none;
-  font-size: xx-large;
-}
-#vegyuletContainer #egyenloJel {
-  color: blue;
-}
 #okGomb {
   width: 80px;
   height: 35px;
@@ -227,40 +108,247 @@ body {
   border: solid white;
   color: white;
 }
+
+.square {
+font-size:large;
+align-content: center;
+width: 50px;
+height: 50px;
+background-color: white;
+margin: 0;
+margin-bottom: 5px;
+border-style: groove;
+border-color: black;
+cursor: grab;
+}
+
+.container {
+display: flex;
+justify-content: center;
+align-items: center;
+flex-direction: column;
+margin-top: 50px;
+}
+.containerSpec .savContainer {
+background-color: black;
+height:80svh;
+width: 80svw; 
+display: flex;
+align-items: center;
+flex-direction: column;
+}
+.container p {
+margin-top: 5%;
+display: flex;
+width: 50%;
+flex-wrap: wrap;
+}
+.containerSpec {
+display: flex;
+justify-content: space-evenly;
+flex-direction: row;
+margin-top: 50px;
+align-items: flex-start;
+
+}
+.containerSpec #elemek, #gyokok {
+width: fit-content;
+display: flex;
+flex-direction: column;
+}
+.buttonContainer {
+display: flex;
+flex-direction: row;
+justify-content: center; 
+align-items: center;
+}
+.plusButton {
+width: 50px;
+height: 50px;
+background-color: white;
+margin: 0;
+margin-bottom: 5px;
+border-style: groove;
+border-color: black;
+cursor: pointer;
+margin: 0 10px 0 0;
+align-items: center;
+justify-content: center;
+display: flex;
+}
+.buttonContainer input{
+width: 100%;
+height: 100%;
+background-color: white;
+margin: 0;
+margin-bottom: 5px;
+border-style: groove;
+border-color: black;
+cursor: pointer;
+margin: 0 0 0 0;
+align-items: center;
+justify-content: center;
+display: flex;
+
+}
+#hidrogenButton {
+margin: 0 10px 0 0;
+}
+.buttonContainer p:hover {
+background-color: grey;
+}
+#trash {
+height: 90px;
+width: 100px;
+margin-top: 15%;
+background-color: white;
+border-style: groove;
+border-color: black;
+}
+
+#elemek p, #gyokok p {
+width: 50px;
+height: 50px;
+background-color: white;
+margin: 0;
+margin-bottom: 5px;
+border-style: groove;
+border-color: black;
+cursor: pointer;
+}
+#vegyuletContainer {
+width: 70%;
+height: 40%;
+margin-top: 50px ;
+display: flex;
+flex-direction: row;
+align-items: center;
+justify-content: space-around;
+flex-direction: row;
+
+}
+#vegyuletContainer p{
+height: 50px;
+width: 50px;
+color: white;
+background-color: inherit;
+font-weight: 900;
+display: flex;
+align-items: center;
+justify-content: center;
+border: dotted white;
+}
+#vegyuletContainer .valasztottSpec {
+border: none;
+font-size: xx-large;
+}
+#vegyuletContainer #egyenloJel {
+color: blue;
+}
+
 #elemek #vigyazzElem, #gyokok #vigyazzGyok {
-  background-color: red;
-  border: double;
-  color: yellow;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 50px;
-  visibility: hidden;
+background-color: red;
+border: double;
+color: yellow;
+display: flex;
+justify-content: center;
+align-items: center;
+font-size: 50px;
+visibility: hidden;
 }
 #valaszContainer {
-  background-color: black;
-  height: 60%;
-  width: inherit;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+background-color: black;
+height: 60%;
+width: inherit;
+display: flex;
+align-items: center;
+justify-content: center;
 }
 #valaszContainer p {
-  font-size: 80px;
-  color: white;
-  visibility: hidden;
+font-size: 80px;
+color: white;
+visibility: hidden;
 }
 #nameBox {
-  background: white;
-  height: 80px;
-  width: 500px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  visibility: hidden;
-  border: solid 5px;
+background: white;
+height: 80px;
+width: 500px;
+display: flex;
+justify-content: center;
+align-items: center;
+visibility: hidden;
+border: solid 5px;
 }
 header #szenhidrogenek{
-  height: 50px;
-  width: 100px;
+height: 50px;
+width: 100px;
+border: 1px solid black;
+padding: 20px;
+text-align: center;
+text-decoration: none;
+display: inline-block;
+margin: 4px 2px;
+cursor: pointer;
+border-radius: 4px;
+}
+#szenhidrogenek p{
+font-size: 15px;
+text-align: center;
+margin: 0;
+padding: 0;
+display: flex;
+align-items: center;
+justify-content: center;
+
+}
+
+#reset {
+height: 50px;
+width: 100px;
+border: 1px solid black;
+padding: 20px;
+text-align: center;
+text-decoration: none;
+display: inline-block;
+margin: 4px 2px;
+cursor: pointer;
+border-radius: 4px;
+
+}
+#reset p{
+font-size: 15px;
+text-align: center;
+margin: 0;
+padding: 0;
+display: flex;
+align-items: center;
+justify-content: center;
+
+}
+
+.szamlaloH {
+position: absolute;
+top: 60px;
+left : 78%;
+padding: 0px;
+font-family: noto-sans;
+font-size: 20px;
+}
+
+.szamlaloC {
+position: absolute;
+top: 60px;
+left : 82%;
+padding: 0px;
+font-family: noto-sans;
+font-size: 20px;
+}
+
+#trashStyle {
+align-items: left;
+justify-content: left;
+display: flex;
+height: 50px;
+width: 50px;
+padding: 5px;
 }
