@@ -155,7 +155,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function closeDragElement() {
       const trashRect = trash.getBoundingClientRect();
       const elmntRect = elmnt.getBoundingClientRect();
-    
+  
       if (
         elmntRect.left < trashRect.right &&
         elmntRect.right > trashRect.left &&
@@ -163,16 +163,27 @@ document.addEventListener('DOMContentLoaded', () => {
         elmntRect.bottom > trashRect.top &&
         elmnt.getAttribute('vonal') === "nincs"
       ) {
-        if (elmnt.textContent === 'H'){ HSzam--; document.getElementById("Hszam").textContent = `H: ${HSzam}`;}
-        if (elmnt.textContent === 'C'){ CSzam--; document.getElementById("Cszam").textContent = `C: ${CSzam}`;}
+        if (elmnt.textContent === 'H') {
+          HSzam--;
+          document.getElementById("Hszam").textContent = `H: ${HSzam}`;
+        }
+        if (elmnt.textContent === 'C') {
+          CSzam--;
+          document.getElementById("Cszam").textContent = `C: ${CSzam}`;
+        }
     
         const lines = elmnt.querySelectorAll('.line');
         lines.forEach(line => {
-          delete line.connectedSquare;
+          if (line.connectedSquare === elmnt) {
+            line.connectedSquare = null;
+            console.log(`Line ${line.id} disconnected from square.`);
+          }
         });
     
+
         elmnt.remove();
     
+
         squareGroups = squareGroups.map(group => group.filter(square => square !== elmnt))
                                    .filter(group => group.length > 0);
     
@@ -185,12 +196,6 @@ document.addEventListener('DOMContentLoaded', () => {
     
       document.removeEventListener('mouseup', closeDragElement);
       document.removeEventListener('mousemove', elementDrag);
-
-      document.addEventListener('DOMContentLoaded', () => {
-        document.getElementById("Hszam").textContent = `H: ${HSzam}`;
-        document.getElementById("Cszam").textContent = `C: ${CSzam}`;
-    }
-      );
     }
   }
 
@@ -296,6 +301,7 @@ function stickSquares(square1, square2) {
   lines.forEach(line => {
     const lineRect = line.getBoundingClientRect();
 
+
     if (
       lineRect.left < square1Rect.right &&
       lineRect.right > square1Rect.left &&
@@ -303,28 +309,19 @@ function stickSquares(square1, square2) {
       lineRect.bottom > square1Rect.top
     ) {
 
-      if (line.connectedSquare) {
-        console.log(`Line ${line.id} is already connected to another square.`);
-        return; // Skip this line if it's already connected
-      }
-      console.log(`Collision detected with line: ${line.id}`);
-
       if (line.id.includes("right")) {
         square1.style.left = (square2Rect.left + 100) + 'px';
         square1.style.top = square2.style.top;
         square2.removeEventListener('dblclick', toggleLines);
-      } 
-      else if (line.id.includes("left")) {
+      } else if (line.id.includes("left")) {
         square1.style.left = (square2Rect.left - 100) + 'px';
         square1.style.top = square2.style.top;
         square2.removeEventListener('dblclick', toggleLines);
-      } 
-      else if (line.id.includes("top")) {
+      } else if (line.id.includes("top")) {
         square1.style.top = (square2Rect.top - 100) + 'px';
         square1.style.left = square2.style.left;
         square2.removeEventListener('dblclick', toggleLines);
-      } 
-      else if (line.id.includes("bottom")) {
+      } else if (line.id.includes("bottom")) {
         square1.style.top = (square2Rect.top + 100) + 'px';
         square1.style.left = square2.style.left;
         square2.removeEventListener('dblclick', toggleLines);
@@ -338,7 +335,6 @@ function stickSquares(square1, square2) {
       if (!group.includes(square1)) group.push(square1);
       if (!group.includes(square2)) group.push(square2);
 
-      line.connectedSquare = square1;
     }
   });
 }
