@@ -90,6 +90,42 @@ document.addEventListener("DOMContentLoaded", () => {
             let valaszText = valaszElem + valaszGyok;
             valasz.textContent = valaszText;
             egyenloJel.style.color = "white";
+
+            const trimmedElem = valaszElem.trim();
+            const trimmedGyok = valaszGyok.trim();
+        
+            console.log("Sending elem:", trimmedElem); // Log the trimmed value of valaszElem
+            console.log("Sending gyok:", trimmedGyok); // Log the trimmed value of valaszGyok
+        
+            fetch("savakScript.php", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                },
+                body: new URLSearchParams({
+                    elem: trimmedElem,
+                    gyok: trimmedGyok,
+                }),
+            })
+            .then(response => response.json()) // Parse the response as JSON
+            .then(data => {
+                console.log("Response from server:", data); // Log the full response
+        
+                if (data.nev) {
+                    console.log("Found nev:", data.nev); // Log the 'nev' value if found
+                    valasz.textContent = `${data.nev}`;
+                } else if (data.error) {
+                    console.error("Error from server:", data.error); // Log any error from the server
+                    //valasz.textContent = "Hibás a megadott adat!";
+                } else {
+                    console.log("No matching 'nev' found.");
+                    valasz.textContent = "No matching 'nev' found.";
+                }
+            })
+            .catch(error => {
+                console.error("Fetch error:", error); // Handle any fetch errors
+                valasz.textContent = "An error occurred while fetching data.";
+            });
         }
         if (elemValasztva === false) {
             vigyazzElem.style.visibility = "visible";
@@ -103,45 +139,4 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         
     })
-    
-    
-    okGomb.addEventListener('click', () => {
-        // Trim the values before sending them
-        const trimmedElem = valaszElem.trim();
-        const trimmedGyok = valaszGyok.trim();
-    
-        console.log("Sending elem:", trimmedElem); // Log the trimmed value of valaszElem
-        console.log("Sending gyok:", trimmedGyok); // Log the trimmed value of valaszGyok
-    
-        fetch("savakScript.php", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded",
-            },
-            body: new URLSearchParams({
-                elem: trimmedElem,
-                gyok: trimmedGyok,
-            }),
-        })
-        .then(response => response.json()) // Parse the response as JSON
-        .then(data => {
-            console.log("Response from server:", data); // Log the full response
-    
-            if (data.nev) {
-                console.log("Found nev:", data.nev); // Log the 'nev' value if found
-                valasz.textContent = `${data.nev}`;
-            } else if (data.error) {
-                console.error("Error from server:", data.error); // Log any error from the server
-                valasz.textContent = "Hibás a megadott adat!";
-            } else {
-                console.log("No matching 'nev' found.");
-                valasz.textContent = "No matching 'nev' found.";
-            }
-        })
-        .catch(error => {
-            console.error("Fetch error:", error); // Handle any fetch errors
-            valasz.textContent = "An error occurred while fetching data.";
-        });
-    });
-    
 });
