@@ -39,21 +39,21 @@ CREATE TABLE `kemia` (
 --
 
 INSERT INTO `kemia` (`C`, `H`, `CH`, `nev`) VALUES
-('C1', 'H4', 'C1H4', 'metan'),
-('C2', 'H6', 'C2H6', 'etan'),
-('C3', 'H8', 'C3H8', 'propan'),
-('C4', 'H10', 'C4H10', 'butan'),
-('C5', 'H12', 'C5H12', 'pentan'),
-('C6', 'H14', 'C6H14', 'hexan'),
-('C7', 'H16', 'C7H16', 'heptan'),
-('C8', 'H18', 'C8H18', 'oktan'),
-('C9', 'H20', 'C9H20', 'nonan'),
-('C10', 'H22', 'C10H22', 'dekan'),
-('C11', 'H24', 'C11H24', 'undekan'),
-('C12', 'H26', 'C12H26', 'dodekan'),
-('C13', 'H28', 'C13H28', 'tridekan'),
-('C14', 'H30', 'C14H30', 'tetradekan'),
-('C15', 'H32', 'C15H32', 'pentadekan');
+('C1', 'H4', 'C1H4', 'metán'),
+('C2', 'H6', 'C2H6', 'etán'),
+('C3', 'H8', 'C3H8', 'propán'),
+('C4', 'H10', 'C4H10', 'bután'),
+('C5', 'H12', 'C5H12', 'pentán'),
+('C6', 'H14', 'C6H14', 'hexán'),
+('C7', 'H16', 'C7H16', 'heptán'),
+('C8', 'H18', 'C8H18', 'oktán'),
+('C9', 'H20', 'C9H20', 'nonán'),
+('C10', 'H22', 'C10H22', 'dekán'),
+('C11', 'H24', 'C11H24', 'undekán'),
+('C12', 'H26', 'C12H26', 'dodekán'),
+('C13', 'H28', 'C13H28', 'tridekán'),
+('C14', 'H30', 'C14H30', 'tetradekán'),
+('C15', 'H32', 'C15H32', 'pentadekán');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
