@@ -352,3 +352,18 @@ height: 50px;
 width: 50px;
 padding: 5px;
 }
+.containerSpec #egyedi {
+  background-color: inherit;
+  border: none;
+  font-weight: bold;
+  font-size: larger;
+  display: flex;
+  justify-content: center;
+}
+#utasitas {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: x-large;
+}
