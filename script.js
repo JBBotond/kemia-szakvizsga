@@ -160,15 +160,16 @@ document.addEventListener('DOMContentLoaded', () => {
         elmntRect.left < trashRect.right &&
         elmntRect.right > trashRect.left &&
         elmntRect.top < trashRect.bottom &&
-        elmntRect.bottom > trashRect.top &&
-        elmnt.getAttribute('vonal') === "nincs"
+        elmntRect.bottom > trashRect.top //&&
+        //elmnt.getAttribute('vonal') === "nincs"
       ) {
         if (elmnt.textContent === 'H'){ HSzam--; document.getElementById("Hszam").textContent = `H: ${HSzam}`;}
         if (elmnt.textContent === 'C'){ CSzam--; document.getElementById("Cszam").textContent = `C: ${CSzam}`;}
     
         const lines = elmnt.querySelectorAll('.line');
         lines.forEach(line => {
-          delete line.connectedSquare;
+          line.connectedSquare = false;
+          console.log(line.connectedSquare);
         });
     
         elmnt.remove();
@@ -216,6 +217,8 @@ document.addEventListener('DOMContentLoaded', () => {
       line.style.position = 'absolute';
       line.style.backgroundColor = 'black';
       line.setAttribute("index", square.getAttribute("index"));
+      line.connectedSquare = false;
+      console.log(line.connectedSquare);
 
       switch (direction) {
         case 'top':
@@ -303,7 +306,7 @@ function stickSquares(square1, square2) {
       lineRect.bottom > square1Rect.top
     ) {
 
-      if (line.connectedSquare) {
+      if (line.connectedSquare === true) {
         console.log(`Line ${line.id} is already connected to another square.`);
         return; // Skip this line if it's already connected
       }
@@ -338,7 +341,8 @@ function stickSquares(square1, square2) {
       if (!group.includes(square1)) group.push(square1);
       if (!group.includes(square2)) group.push(square2);
 
-      line.connectedSquare = square1;
+      line.connectedSquare = true;
+      console.log(line.connectedSquare);
     }
   });
 }
