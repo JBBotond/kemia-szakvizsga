@@ -30,9 +30,10 @@ document.addEventListener('DOMContentLoaded', () => {
   resetButton.addEventListener('click', resetSquares);
 
   function initializeSquare(square) {
-    square.setAttribute("index", numSquare.toString());
+    square.index = numSquare.toString();
     square.setAttribute('vonal', 'nincs');
     console.log(square.getAttribute('index'), square.getAttribute('vonal'));
+    square.connected = "";
   }
 
   function setupSquare(square) {
@@ -165,12 +166,28 @@ document.addEventListener('DOMContentLoaded', () => {
       ) {
         if (elmnt.textContent === 'H'){ HSzam--; document.getElementById("Hszam").textContent = `H: ${HSzam}`;}
         if (elmnt.textContent === 'C'){ CSzam--; document.getElementById("Cszam").textContent = `C: ${CSzam}`;}
-    
-        const lines = elmnt.querySelectorAll('.line');
-        lines.forEach(line => {
+        
+        /*const lines = elmnt.getElementsByClassName('line');
+        Array.from(lines).forEach(line => {
+          console.log("fasz");
+          Array.from(allSquares).forEach(square => {
+            if(square.connected.includes(elmnt.index)) {
+              console.log("index: " + square.index);
+              square.connectedSquare = false;
+            }
+          })
           line.connectedSquare = false;
-          console.log(line.connectedSquare);
-        });
+          console.log(line.connectedSquare + ", belepett");
+        });*/
+        
+        const allSquares = document.getElementsByClassName('square');
+        Array.from(allSquares).forEach(square => {
+          const lines = Array.from(square.getElementsByClassName("line")); 
+          lines.forEach(line => {
+            if(elmnt.connected.includes(line.index))
+              line.connectedSquare = false;
+          })
+        })
     
         elmnt.remove();
     
@@ -213,7 +230,11 @@ document.addEventListener('DOMContentLoaded', () => {
     directions.forEach(direction => {
       const line = document.createElement('div');
       line.classList.add('line', 'line' + square.getAttribute("index"));
-      line.id = direction + square.getAttribute('index');
+      line.id = direction + square.index;
+      line.index = square.index;
+
+      console.log(line.id);
+
       line.style.position = 'absolute';
       line.style.backgroundColor = 'black';
       line.setAttribute("index", square.getAttribute("index"));
@@ -316,21 +337,41 @@ function stickSquares(square1, square2) {
         square1.style.left = (square2Rect.left + 100) + 'px';
         square1.style.top = square2.style.top;
         square2.removeEventListener('dblclick', toggleLines);
+        
+        square2.connected = square2.connected + square1.index + " ";
+        square1.connected = square1.connected + square2.index+ " ";
+        console.log(square2.connected);
+        console.log(square1.connected);
       } 
       else if (line.id.includes("left")) {
         square1.style.left = (square2Rect.left - 100) + 'px';
         square1.style.top = square2.style.top;
         square2.removeEventListener('dblclick', toggleLines);
+
+        square2.connected = square2.connected + square1.index + " ";
+        square1.connected = square1.connected + square2.index+ " ";
+        console.log(square2.connected);
+        console.log(square1.connected);
       } 
       else if (line.id.includes("top")) {
         square1.style.top = (square2Rect.top - 100) + 'px';
         square1.style.left = square2.style.left;
         square2.removeEventListener('dblclick', toggleLines);
+
+        square2.connected = square2.connected + square1.index + " ";
+        square1.connected = square1.connected + square2.index+ " ";
+        console.log(square2.connected);
+        console.log(square1.connected);
       } 
       else if (line.id.includes("bottom")) {
         square1.style.top = (square2Rect.top + 100) + 'px';
         square1.style.left = square2.style.left;
         square2.removeEventListener('dblclick', toggleLines);
+
+        square2.connected = square2.connected + square1.index + " ";
+        square1.connected = square1.connected + square2.index+ " ";
+        console.log(square2.connected);
+        console.log(square1.connected);
       }
 
       let group = squareGroups.find(g => g.includes(square1) || g.includes(square2));
@@ -342,7 +383,7 @@ function stickSquares(square1, square2) {
       if (!group.includes(square2)) group.push(square2);
 
       line.connectedSquare = true;
-      console.log(line.connectedSquare);
+      //console.log(line.connectedSquare);
     }
   });
 }
